@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+      <meta charset="UTF-8">
+      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.css'>
+      <style>
+      *, *:after, *:before {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      }
+
+      /* ----------
+      WRAPPERS & CONTAINERS
+      ---------- */
+      section {
+      position: relative;
+      padding: 2.5rem 0;
+      }
+      .container {
+      position: relative;
+      margin: auto;
+      padding: 0 20px;
+      width: 100%;
+      max-width: 970px;
+      }
+      section:after, .container:after, .row:after {
+      display: table;
+      content: '';
+      clear: both;
+      }
+      /* ----------
+      CODE BLOCK
+      ---------- */
+      .code-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      border-radius: 3px;
+      box-shadow: 3px 3px 6px rgba(0, 0, 0, .3);
+      }
+      .code-container:last-child {
+      margin-bottom: 0;
+      }
+
+      .btn {
+      background-color: #ed9d0a;
+      color: #fff;
+      padding: 4px 10px;
+      text-decoration: none;
+      border: none;
+      outline: none;
+      border-radius: 3px;
+      box-shadow: 0 8px 6px -6px rgba(0, 0, 0, .15);
+      -webkit-backface-visibility: hidden;
+      -webkit-transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease;
+      transition: 200ms -webkit-transform ease, 200ms transform ease, 200ms box-shadow ease;
+      }
+      .btn:hover {
+      box-shadow: 0 6px 6px -4px rgba(0, 0, 0, .2);
+      -webkit-transform: translateY(-2px);
+      transform: translateY(-2px);
+      }
+      .btn.btn-left {
+      float: left;
+      }
+      .btn.btn-right {
+      float: right;
+      }
+      .row {
+      margin-bottom: 1.5rem;
+      width: 100%;
+      }
+      .row:last-child {
+      margin-bottom: 0;
+      }
+    </style>
+</head>
+<body translate="no" >
+  <section>
+    <div class="container">
+      <button class="btn" onclick="run()">Run code!</button>
+        <div class="code-container">
+            <textarea id="code"><!-- xml/html syntax -->
+                      <!DOCTYPE html>
+                      <html>
+                      <head>
+                      <meta charset="utf-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+                      <!-- title -->
+                      <title>Example website</title>
+
+                      <!-- css -->
+                      <style type="text/css">
+                      /* css syntax */
+                      body {
+                          position: fixed;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          box-shadow: 0 0 50px #eee;
+                          padding: 20px;
+                          background: #fff
+                      }
+                      html {
+                          background: #fafafa
+                      }
+                      </style>
+
+                      </head>
+                      <body>
+                      <section>
+                      <div class="container">
+                      <h1>Example website</h1>
+                      <p>This is just a HTML example</p>
+                      </div>
+                      </section>
+                      </body>
+                      </html>
+            </textarea>
+        </div>
+        <iframe id="code_result" width="100%" height="500px" style="border: 5px solid gray">
+        </iframe>
+
+    </div>
+  </section>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/xml/xml.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/css/css.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/htmlmixed/htmlmixed.js'></script>
+
+<script id="rendered-js" >
+    var doc = document.getElementById('code_result').contentWindow.document;
+    var html_value;
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        styleActiveLine: true,
+        lineNumbers: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        autoCloseTags: true,
+        mode: "htmlmixed",
+    });
+    function run() {
+        html_value = editor.getValue();
+        doc.open();
+        doc.write(html_value);
+        doc.close();
+    }
+</script>
+</body>
+
+</html>
+
+
+
+<!-- <style>
+    .messageBox {
+  width: fit-content;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2d2d2d;
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 1px solid rgb(63, 63, 63);
+}
+.messageBox:focus-within {
+  border: 1px solid rgb(110, 110, 110);
+}
+.fileUploadWrapper {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#file {
+  display: none;
+}
+.fileUploadWrapper label {
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.fileUploadWrapper label svg {
+  height: 18px;
+}
+.fileUploadWrapper label svg path {
+  transition: all 0.3s;
+}
+.fileUploadWrapper label svg circle {
+  transition: all 0.3s;
+}
+.fileUploadWrapper label:hover svg path {
+  stroke: #fff;
+}
+.fileUploadWrapper label:hover svg circle {
+  stroke: #fff;
+  fill: #3c3c3c;
+}
+.fileUploadWrapper label:hover .tooltip {
+  display: block;
+  opacity: 1;
+}
+.tooltip {
+  position: absolute;
+  top: -40px;
+  display: none;
+  opacity: 0;
+  color: white;
+  font-size: 10px;
+  text-wrap: nowrap;
+  background-color: #000;
+  padding: 6px 10px;
+  border: 1px solid #3c3c3c;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.596);
+  transition: all 0.3s;
+}
+#messageInput {
+  width: 200px;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding-left: 10px;
+  color: white;
+}
+#messageInput:focus ~ #sendButton svg path,
+#messageInput:valid ~ #sendButton svg path {
+  fill: #3c3c3c;
+  stroke: white;
+}
+
+#sendButton {
+  width: fit-content;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#sendButton svg {
+  height: 18px;
+  transition: all 0.3s;
+}
+#sendButton svg path {
+  transition: all 0.3s;
+}
+#sendButton:hover svg path {
+  fill: #3c3c3c;
+  stroke: white;
+}
+
+</style>
+<div class="messageBox">
+    <div class="fileUploadWrapper">
+      <label for="file">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 337 337">
+          <circle
+            stroke-width="20"
+            stroke="#6c6c6c"
+            fill="none"
+            r="158.5"
+            cy="168.5"
+            cx="168.5"
+          ></circle>
+          <path
+            stroke-linecap="round"
+            stroke-width="25"
+            stroke="#6c6c6c"
+            d="M167.759 79V259"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-width="25"
+            stroke="#6c6c6c"
+            d="M79 167.138H259"
+          ></path>
+        </svg>
+        <span class="tooltip">Add an image</span>
+      </label>
+      <input type="file" id="file" name="file" />
+    </div>
+    <input required="" placeholder="Message..." type="text" id="messageInput" />
+    <button id="sendButton">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663">
+        <path
+          fill="none"
+          d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+        ></path>
+        <path
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          stroke-width="33.67"
+          stroke="#6c6c6c"
+          d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+        ></path>
+      </svg>
+    </button>
+  </div>
+   -->

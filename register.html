@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/solid.min.css">
+    <title>Piction</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="inner-container">
+            <div class="reg-form">
+                <form id="myForm">
+                    <div class="reg-head">
+                        <h1>Sign Up</h1>
+                    </div>
+                    <div class="reg-body">
+                        <div class="input-container first-part">
+                            <label for="">Name</label>
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="input-container first-part">
+                            <label for="">Email</label>
+                            <input type="email" placeholder="example@gmail.com" required>
+                        </div>
+                        <div class="input-container first-part">
+                            <label for="">Password</label>
+                            <input type="password" placeholder="your password" required>
+                        </div>
+
+                        <div class="input-container second-part">
+                            <label for="">Your skill</label>
+                            <input id="skills" type="text" placeholder="your skill" readonly>
+                        </div>
+                        <div class="lists second-part">
+                            <p>Java</p>
+                            <p>Python</p>
+                            <p>SQL</p>
+                            <p>C++</p>
+                            <p>C</p>
+                            <p>C#</p>
+                            <p>Web development</p>
+                            <p>Full Stack</p>
+                            <p>UI/UX</p>
+                            <p id="other">Other</p>
+                        </div>
+                    </div>
+                    <div class="continue-btn">
+                        <button class="continue">Continue <i class="fa fa-angle-right"></i></button>
+                    </div>
+                </form>
+                <a href="home.html" class="log-in">Already have an account?</a>
+            </div>
+        </div>
+    </div>
+    <script>
+    
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+        
+        event.preventDefault();
+        document.querySelector('.lists').addEventListener('click', function(event) {
+            if (event.target.tagName === 'P') {
+                var selectedSkill = event.target.innerText;
+                var inputField = document.getElementById("skills");
+                var otherSkill = document.getElementById("other");
+
+                if(selectedSkill === "Other") {
+                    (inputField.readOnly == true)? inputField.readOnly = false: inputField.readOnly = true;
+                    inputField.readOnly ? inputField.removeAttribute('autofocus') : inputField.setAttribute('autofocus', 'true');
+
+                }
+                else {
+                    if (event.target.classList.contains("clicked")) {
+                        event.target.classList.remove("clicked");
+                        inputField.value = inputField.value.replace(selectedSkill + ", ", "");
+                    }
+                    else {
+                        event.target.classList.add("clicked");
+                        inputField.value += selectedSkill + ", ";
+                    }
+                }
+            }
+        });
+
+        // document.querySelector('.continue').addEventListener('click', () => { 
+        var firstPartElements = document.querySelectorAll('.first-part');
+        firstPartElements.forEach(function(element) {
+            element.style.display = "none";
+        });
+
+        var secondPartElements = document.querySelectorAll('.second-part');
+        secondPartElements.forEach(function(element) {
+            element.style.display = "flex";
+        });
+
+
+        // });
+    });
+    </script>
+</body>
+</html>
